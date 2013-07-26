@@ -19,7 +19,7 @@
 
 -(IBAction)ruta:(id)sender;
 
-
+@property (strong, nonatomic) IBOutlet UIScrollView *scrolling;
 @property (strong,nonatomic) NSString *alat;
 @property (strong,nonatomic) NSString *alon;
 @property (strong,nonatomic) NSString *lat;

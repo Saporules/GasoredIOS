@@ -69,12 +69,35 @@
         _tel.text=nil;
     }
     
-    NSMutableArray *features = [[NSMutableArray alloc] initWithCapacity:20];
-    NSString *feat = [NSString stringWithString:<#(NSString *)#>];
+    NSMutableArray *features = [[NSMutableArray alloc] initWithCapacity:100];
+    //NSString *feat = [NSString stringWithString:(NSString *)];
+    UILabel *featLabel;
+    int cordX=50;
+    int cordY=220;
+    int i=0;
     
-    [features objectAtIndex:i];
+    for (i=0; i<=20; i++) {
+        for (int i2=0; i2<=1; i2++) {
+        
+            featLabel = [[UILabel alloc]initWithFrame:CGRectMake(cordX, cordY, 200, 44)];
+            featLabel.backgroundColor = [UIColor clearColor];
+            featLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:14];
+            featLabel.text = [NSString stringWithFormat:@"feature%d!",i];
+            cordX+=160;
+            
+            [features addObject:featLabel];
+            [_scrolling addSubview:[features objectAtIndex:i]];
+            i++;
+            
+    }
+        i--;
+        cordX=50;
+        cordY+=20;
     
-    UILabel *etiqueta = [[UILabel alloc]initWithFrame:CGRectMake(50, 220, 200, 44)];
+    }
+    
+    
+    /*UILabel *etiqueta = [[UILabel alloc]initWithFrame:CGRectMake(50, 220, 200, 44)];
     etiqueta.backgroundColor = [UIColor clearColor];
     etiqueta.font = [UIFont fontWithName:@"Helvetica-Light" size:14];
     etiqueta.text = @"HOLA1!";
@@ -85,7 +108,7 @@
     etiqueta2.text = @"HOLA2!";
     
     [self.view addSubview:etiqueta];
-    [self.view addSubview:etiqueta2];
+    [self.view addSubview:etiqueta2];*/
     
 }
 
