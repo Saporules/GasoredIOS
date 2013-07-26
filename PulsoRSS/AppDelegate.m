@@ -7,10 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "KMXMLParser.h"
 
-#import "FirstViewController.h"
-
-#import "SecondViewController.h"
+#import "TableViewControllerIphone.h"
+#import "MApaViewController.h"
 
 @implementation AppDelegate
 
@@ -18,16 +18,52 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    UIViewController *viewController1, *viewController2;
+    TableViewControllerIphone *viewControllerBene, *viewControllerTips;
+    MApaViewController *mapView;
+    UINavigationController *navViewControllerMapa,*navviewControllerBene,*navviewControllerTips;
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        viewController1 = [[FirstViewController alloc] initWithNibName:@"FirstViewController_iPhone" bundle:nil];
-        viewController2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController_iPhone" bundle:nil];
+        mapView=[[MApaViewController alloc] initWithNibName:@"MApaViewController" bundle:nil];
+        viewControllerBene = [[TableViewControllerIphone alloc] initWithNibName:@"TableViewControllerIphone" bundle:nil];
+        viewControllerTips = [[TableViewControllerIphone alloc] initWithNibName:@"TableViewControllerIphone" bundle:nil];
+        
+        
     } else {
-        viewController1 = [[FirstViewController alloc] initWithNibName:@"FirstViewController_iPad" bundle:nil];
-        viewController2 = [[SecondViewController alloc] initWithNibName:@"SecondViewController_iPad" bundle:nil];
+        mapView=[[MApaViewController alloc] initWithNibName:@"MApaViewController" bundle:nil];
+        viewControllerBene = [[TableViewControllerIphone alloc] initWithNibName:@"TableViewControllerIphone" bundle:nil];
+        viewControllerTips = [[TableViewControllerIphone alloc] initWithNibName:@"TableViewControllerIphone" bundle:nil];
+        
     }
+    
+    navViewControllerMapa=[[UINavigationController alloc] initWithRootViewController:mapView];
+    navviewControllerBene = [[UINavigationController alloc] initWithRootViewController:viewControllerBene];
+    navviewControllerTips = [[UINavigationController alloc] initWithRootViewController:viewControllerTips];
+    
+    
+    navViewControllerMapa.title=@"Mapa";
+    navviewControllerTips.title=@"Gasotips";
+    navviewControllerBene.title=@"Beneficios";
+    
+    
+    KMXMLParser *parser = [[KMXMLParser alloc]  initWithURL:@"http://www.gasored.net/feed" delegate:nil];
+    
+    viewControllerTips.parser=parser;
+    viewControllerBene.parser=parser;
+    
+    mapView.title=@"Ubicaciones";
+    viewControllerTips.title=@"Gasotips";
+    viewControllerBene.title=@"Beneficios";
+    
+    mapView.tabBarItem.image = [UIImage imageNamed:@"mapa_32"];
+    viewControllerBene.tabBarItem.image = [UIImage imageNamed:@"beneficios_32"];
+    viewControllerTips.tabBarItem.image = [UIImage imageNamed:@"gasotips_32"];
+    
+    [navViewControllerMapa.navigationBar setTintColor:[UIColor blackColor]];
+    [navviewControllerTips.navigationBar setTintColor:[UIColor blackColor]];
+    [navviewControllerBene.navigationBar setTintColor:[UIColor blackColor]];
+    
+    
     self.tabBarController = [[UITabBarController alloc] init];
-    self.tabBarController.viewControllers = @[viewController1, viewController2];
+    self.tabBarController.viewControllers = @[navViewControllerMapa,navviewControllerBene, navviewControllerTips];
     self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
@@ -73,5 +109,8 @@
 {
 }
 */
+
+
+
 
 @end
